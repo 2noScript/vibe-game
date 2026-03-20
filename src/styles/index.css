@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-cyber: "Orbitron", sans-serif;
+  --font-tech: "Rajdhani", sans-serif;
+  
+  --color-neon-blue: #00f3ff;
+  --color-neon-pink: #ff00ff;
+  --color-neon-yellow: #ffe600;
+  --color-neon-green: #00ff9d;
+  
+  --animate-glitch: glitch 1s linear infinite;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  
+  @keyframes glitch {
+    2%, 64% { transform: translate(2px,0) skew(0deg); }
+    4%, 60% { transform: translate(-2px,0) skew(0deg); }
+    62% { transform: translate(0,0) skew(5deg); }
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 5px currentColor); }
+    50% { opacity: .7; filter: drop-shadow(0 0 2px currentColor); }
+  }
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .glass-panel {
+    @apply bg-black/60 backdrop-blur-md border border-white/10 shadow-lg;
+  }
+
+  .neon-text {
+    @apply font-cyber tracking-wider uppercase;
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .neon-border {
+    box-shadow: 0 0 10px currentColor, inset 0 0 5px currentColor;
+  }
+
+  .cyber-button {
+    @apply relative overflow-hidden font-cyber font-bold tracking-widest uppercase transition-all duration-300;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .cyber-button:hover {
+    @apply scale-105;
+    filter: drop-shadow(0 0 15px currentColor);
+  }
+
+  .cyber-card {
+    @apply relative bg-black/80 border border-white/10 p-6;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  }
+}
+
+/* Scrollbar for Shop */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000; 
+}
+::-webkit-scrollbar-thumb {
+  background: #333; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

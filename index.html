@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>vibe game</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none'><path d='M6 6L16 26L26 6' stroke='%2300f3ff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><path d='M10 6L16 18L22 6' stroke='%23ff0054' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #050011;
+        font-family: 'Silkscreen', sans-serif;
+      }
+      .font-pixel {
+        font-family: 'Press Start 2P', cursive;
+      }
+      .font-retro {
+        font-family: 'Silkscreen', sans-serif;
+      }
+      .pixel-border {
+        box-shadow: 
+          0 -4px 0 0 #000,
+          0 4px 0 0 #000,
+          -4px 0 0 0 #000,
+          4px 0 0 0 #000;
+      }
+      .pixel-border-white {
+        box-shadow: 
+          0 -2px 0 0 #fff,
+          0 2px 0 0 #fff,
+          -2px 0 0 0 #fff,
+          2px 0 0 0 #fff;
+      }
+      .pixel-button-shadow {
+        box-shadow: inset -4px -4px 0px 0px rgba(0,0,0,0.5);
+      }
+      .pixel-button-shadow-active {
+        box-shadow: inset 4px 4px 0px 0px rgba(0,0,0,0.5);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.0/",
+    "react": "https://esm.sh/react@^19.2.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.553.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.0/",
+    "@react-three/postprocessing": "https://esm.sh/@react-three/postprocessing@^3.0.4",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.4.0",
+    "zustand": "https://esm.sh/zustand@^5.0.8",
+    "uuid": "https://esm.sh/uuid@^13.0.0",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
+    "three": "https://esm.sh/three@^0.181.1",
+    "postprocessing": "https://esm.sh/postprocessing@^6.38.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/src/styles/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
