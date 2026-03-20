@@ -119,11 +119,31 @@ const Home: React.FC<HomeProps> = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState('ALL');
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isShortcutsModalOpen, setIsShortcutsModalOpen] = useState(false);
   const [favorites, setFavorites] = useState<string[]>(() => {
     const saved = localStorage.getItem('gemini-arcade-favorites');
     return saved ? JSON.parse(saved) : [];
   });
   const navigate = useNavigate();
+  const searchInputRef = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '.' && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+      if (e.key === '?' && document.activeElement?.tagName !== 'INPUT') {
+        setIsShortcutsModalOpen(prev => !prev);
+      }
+      if (e.key === 'Escape') {
+        setIsShortcutsModalOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handlePlay = (id: string) => {
     navigate(`/game/${id}`);
@@ -158,8 +178,57 @@ const Home: React.FC<HomeProps> = () => {
     });
   }, [searchQuery, selectedTag, favorites]);
 
+  const ShortcutsModal = () => (
+    <AnimatePresence>
+      {isShortcutsModalOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm"
+          onClick={() => setIsShortcutsModalOpen(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, y: 20 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0.9, y: 20 }}
+            className="w-full max-w-md bg-zinc-900 border-4 border-emerald-500 p-8 pixel-border shadow-[0_0_30px_rgba(16,185,129,0.3)]"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-8">
+              <h2 className="text-xl font-pixel text-emerald-400">SYSTEM SHORTCUTS</h2>
+              <button onClick={() => setIsShortcutsModalOpen(false)} className="text-zinc-500 hover:text-white">
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-6 font-pixel">
+              <div className="flex justify-between items-center group">
+                <span className="text-[10px] text-zinc-400">FOCUS SEARCH / BACK TO HUB</span>
+                <span className="bg-emerald-500 text-black px-3 py-1 text-xs border-2 border-emerald-400 shadow-[2px_2px_0_0_rgba(0,0,0,0.5)]">.</span>
+              </div>
+              <div className="flex justify-between items-center group">
+                <span className="text-[10px] text-zinc-400">TOGGLE SHORTCUTS HELP</span>
+                <span className="bg-emerald-500 text-black px-3 py-1 text-xs border-2 border-emerald-400 shadow-[2px_2px_0_0_rgba(0,0,0,0.5)]">?</span>
+              </div>
+              <div className="flex justify-between items-center group">
+                <span className="text-[10px] text-zinc-400">CLOSE MODAL</span>
+                <span className="bg-zinc-700 text-white px-3 py-1 text-xs border-2 border-zinc-600 shadow-[2px_2px_0_0_rgba(0,0,0,0.5)]">ESC</span>
+              </div>
+            </div>
+
+            <div className="mt-12 pt-6 border-t-2 border-white/5 text-center">
+              <p className="text-[8px] text-zinc-600 uppercase tracking-widest">NEON PROTOCOL V1.0.42 // INPUT_MAPPING_ACTIVE</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+
   return (
     <div className="min-h-screen bg-[#050011] text-zinc-100 selection:bg-emerald-500 selection:text-black font-retro pb-20">
+      <ShortcutsModal />
       {/* Scanline Effect */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
 
@@ -205,6 +274,13 @@ const Home: React.FC<HomeProps> = () => {
               <Github size={14} className="group-hover:scale-110 transition-transform" />
               GITHUB
             </a>
+            <button 
+              onClick={() => setIsShortcutsModalOpen(true)}
+              className="flex items-center gap-2 text-emerald-500 hover:text-emerald-400 transition-colors group border-l-2 border-white/10 pl-6 ml-2"
+            >
+              <Info size={14} className="group-hover:scale-110 transition-transform" />
+              HELP [?]
+            </button>
           </div>
         </header>
 
@@ -216,8 +292,9 @@ const Home: React.FC<HomeProps> = () => {
               <Search className="text-zinc-500 group-focus-within:text-emerald-400 transition-colors" size={16} />
             </div>
             <input
+              ref={searchInputRef}
               type="text"
-              placeholder="SEARCH PROGRAMS..."
+              placeholder="SEARCH PROGRAMS... [.]"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-black border-2 border-zinc-800 px-12 py-3 text-[10px] font-pixel text-emerald-400 placeholder:text-zinc-700 focus:border-emerald-500 focus:outline-none transition-all"
