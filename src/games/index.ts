@@ -8,8 +8,6 @@ import { metadata as synthRacer } from './synth-racer/metadata';
 import SynthRacerThumbnail from './synth-racer/thumbnail';
 import { metadata as dataMiner } from './data-miner/metadata';
 import DataMinerThumbnail from './data-miner/thumbnail';
-import { metadata as superJumper } from './super-jumper/metadata';
-import SuperJumperThumbnail from './super-jumper/thumbnail';
 import { metadata as goldMiner } from './gold-miner/metadata';
 import GoldMinerThumbnail from './gold-miner/thumbnail';
 import { metadata as streetsOfRage } from './streets-of-rage/metadata';
@@ -27,7 +25,6 @@ export const games = [
   { ...pixelQuest, Thumbnail: PixelQuestThumbnail },
   { ...synthRacer, Thumbnail: SynthRacerThumbnail },
   { ...dataMiner, Thumbnail: DataMinerThumbnail },
-  { ...superJumper, Thumbnail: SuperJumperThumbnail },
   { ...goldMiner, Thumbnail: GoldMinerThumbnail },
   { ...streetsOfRage, Thumbnail: StreetsOfRageThumbnail },
   { ...contra, Thumbnail: ContraThumbnail },

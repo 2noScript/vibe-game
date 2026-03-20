@@ -23,7 +23,6 @@
 | **Pixel Quest** | A classic pixel-art adventure. |
 | **Synth Racer** | Fast-paced racing with a retro vibe. |
 | **Data Miner** | Dive into the digital grid. |
-| **Super Jumper** | Test your reflexes in this vertical challenge. |
 | **Gold Miner** | Classic mining fun with a modern look. |
 | **Streets of Rage** | Retro brawler action. |
 | **Contra** | Classic run-and-gun gameplay. |

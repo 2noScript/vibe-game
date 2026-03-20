@@ -10,7 +10,6 @@ import VoidExplorer from './games/void-explorer/void-explorer';
 import PixelQuest from './games/pixel-quest/pixel-quest';
 import SynthRacer from './games/synth-racer/synth-racer';
 import DataMiner from './games/data-miner/data-miner';
-import SuperJumper from './games/super-jumper/super-jumper';
 import GoldMiner from './games/gold-miner/gold-miner';
 import StreetsOfRage from './games/streets-of-rage/streets-of-rage';
 import Contra from './games/contra/contra';
@@ -169,17 +168,6 @@ const GameWrapper: React.FC = () => {
         <HelpButton />
         <ShortcutsModal />
         <DataMiner />
-      </div>
-    );
-  }
-
-  if (id === 'super-jumper') {
-    return (
-      <div className="relative w-full h-screen overflow-hidden">
-        <BackButton />
-        <HelpButton />
-        <ShortcutsModal />
-        <SuperJumper />
       </div>
     );
   }
