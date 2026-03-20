@@ -69,18 +69,22 @@ To ensure high-performance, maintainable, and scalable 2D games, all games in th
 ### Standard Directory Structure
 ```text
 src/games/[game-name]/
-├── components/         # React UI (HUD, Menus)
-├── engine/             # Core Game Logic (OOP Classes)
+├── components/         # React UI (HUD, Menus, Overlays)
+├── core/               # Core Engine & Input Management
+├── entities/           # Game Objects (Miner, Items)
+├── systems/            # Global Logic Modules (Particles)
 ├── audio.ts            # Sound management
+├── constants.ts        # Game constants
 ├── store.ts            # Zustand state management
-└── README.md           # Game-specific documentation
+├── types.ts            # TypeScript interfaces and types
+└── [game-name].tsx     # Main game component
 ```
 
 ---
 
-## 📖 Gold Miner - Game Architecture Documentation
+## 📖 Standard Game Architecture Documentation
 
-This document outlines the architectural design of the **Gold Miner** game, following modern software engineering principles and an Object-Oriented Programming (OOP) approach.
+This document outlines the standard architectural design for all games in this hub, using **Gold Miner** as the reference implementation. It follows modern software engineering principles and an Object-Oriented Programming (OOP) approach.
 
 ### 1. High-Level Overview
 The game is built using **React** for the UI layer, **Zustand** for global state management, and **HTML5 Canvas** for the core gameplay rendering. The logic is separated into a dedicated **Game Engine** that handles physics, collisions, and entity updates.
@@ -94,19 +98,20 @@ Located in `store.ts`, the store acts as the bridge between the React UI and the
     - Handling transitions between game screens (Start, Playing, Game Over, Level Clear).
     - Providing a hook for the UI to trigger game actions (e.g., `shootClaw`).
 
-#### B. Game Engine (`game-engine.ts`)
-The `GameEngine` class is the "brain" of the game.
+#### B. Game Engine (`core/engine.ts`)
+The `GoldMinerEngine` class (extending `BaseEngine`) is the "brain" of the game.
 - **Responsibilities**:
     - **Level Generation**: Spawning items based on the current level difficulty.
     - **Update Loop**: Calculating physics, checking for collisions between the claw and items.
     - **Entity Management**: Maintaining lists of active items, particles, and floating texts.
     - **Rendering Orchestration**: Calling the `draw()` methods of all entities in the correct order.
+    - **Input Handling**: Polling the centralized `InputManager` (`core/input.ts`) for player actions.
 
 #### C. Entity System (OOP)
-The game uses a class-based system to encapsulate the behavior and appearance of game objects.
-1.  **Miner (`miner.ts`)**: Manages the swinging angle of the claw, claw states (`swinging`, `shooting`, `retracting`), and drawing logic.
-2.  **Items (`item.ts`)**: Uses a `BaseItem` abstract class for common properties (x, y, value, weight) and subclasses for specific drawing logic.
-3.  **Visual Effects (`particle.ts`)**: Handles debris particles and floating text indicators.
+The game uses a class-based system to encapsulate the behavior and appearance of game objects, all extending `BaseEntity`.
+1.  **Miner (`entities/miner.ts`)**: Manages the swinging angle of the claw, claw states (`swinging`, `shooting`, `retracting`), and drawing logic.
+2.  **Items (`entities/item.ts`)**: Uses a `BaseItem` abstract class for common properties (x, y, value, weight) and subclasses for specific drawing logic.
+3.  **Visual Effects (`systems/particles.ts`)**: Handles debris particles and floating text indicators via a dedicated `ParticleSystem`.
 
 ### 3. The Game Loop
 Operates on a standard `requestAnimationFrame` loop located in `GameView.tsx`.
