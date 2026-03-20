@@ -11,9 +11,9 @@ import PixelQuest from './games/pixel-quest/pixel-quest';
 import SynthRacer from './games/synth-racer/synth-racer';
 import DataMiner from './games/data-miner/data-miner';
 import GoldMiner from './games/gold-miner/gold-miner';
-import StreetsOfRage from './games/streets-of-rage/streets-of-rage';
-import Contra from './games/contra/contra';
-import SuperMario from './games/super-mario/super-mario';
+import CityBrawler from './games/city-brawler/city-brawler';
+import CommandoStrike from './games/commando-strike/commando-strike';
+import SuperJumper from './games/super-jumper/super-jumper';
 import ZombiePlant from './games/zombie-plant/zombie-plant';
 import Home from './pages/home';
 import DeviceGuard from './components/device-guard';
@@ -183,35 +183,35 @@ const GameWrapper: React.FC = () => {
     );
   }
 
-  if (id === 'streets-of-rage') {
+  if (id === 'city-brawler') {
     return (
       <div className="relative w-full h-screen overflow-hidden">
         <BackButton />
         <HelpButton />
         <ShortcutsModal />
-        <StreetsOfRage />
+        <CityBrawler />
       </div>
     );
   }
 
-  if (id === 'contra') {
+  if (id === 'commando-strike') {
     return (
       <div className="relative w-full h-screen overflow-hidden">
         <BackButton />
         <HelpButton />
         <ShortcutsModal />
-        <Contra />
+        <CommandoStrike />
       </div>
     );
   }
 
-  if (id === 'super-mario') {
+  if (id === 'super-jumper') {
     return (
       <div className="relative w-full h-screen overflow-hidden">
         <BackButton />
         <HelpButton />
         <ShortcutsModal />
-        <SuperMario />
+        <SuperJumper />
       </div>
     );
   }

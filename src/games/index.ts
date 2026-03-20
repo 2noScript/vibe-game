@@ -10,12 +10,12 @@ import { metadata as dataMiner } from './data-miner/metadata';
 import DataMinerThumbnail from './data-miner/thumbnail';
 import { metadata as goldMiner } from './gold-miner/metadata';
 import GoldMinerThumbnail from './gold-miner/thumbnail';
-import { metadata as streetsOfRage } from './streets-of-rage/metadata';
-import StreetsOfRageThumbnail from './streets-of-rage/thumbnail';
-import { metadata as contra } from './contra/metadata';
-import ContraThumbnail from './contra/thumbnail';
-import { metadata as superMario } from './super-mario/metadata';
-import SuperMarioThumbnail from './super-mario/thumbnail';
+import { metadata as cityBrawler } from './city-brawler/metadata';
+import CityBrawlerThumbnail from './city-brawler/thumbnail';
+import { metadata as commandoStrike } from './commando-strike/metadata';
+import CommandoStrikeThumbnail from './commando-strike/thumbnail';
+import { metadata as superJumper } from './super-jumper/metadata';
+import SuperJumperThumbnail from './super-jumper/thumbnail';
 import { zombiePlantMetadata as zombiePlant } from './zombie-plant/metadata';
 import ZombiePlantThumbnail from './zombie-plant/thumbnail';
 
@@ -26,8 +26,8 @@ export const games = [
   { ...synthRacer, Thumbnail: SynthRacerThumbnail },
   { ...dataMiner, Thumbnail: DataMinerThumbnail },
   { ...goldMiner, Thumbnail: GoldMinerThumbnail },
-  { ...streetsOfRage, Thumbnail: StreetsOfRageThumbnail },
-  { ...contra, Thumbnail: ContraThumbnail },
-  { ...superMario, Thumbnail: SuperMarioThumbnail },
+  { ...cityBrawler, Thumbnail: CityBrawlerThumbnail },
+  { ...commandoStrike, Thumbnail: CommandoStrikeThumbnail },
+  { ...superJumper, Thumbnail: SuperJumperThumbnail },
   { ...zombiePlant, Thumbnail: ZombiePlantThumbnail },
 ];

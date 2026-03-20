@@ -4,7 +4,7 @@ import { HUD } from './components/hud';
 import { Overlays } from './components/overlays';
 import { useGameStore } from './store';
 
-const Contra: React.FC = () => {
+const CommandoStrike: React.FC = () => {
   const { engine } = useGameStore();
 
   useEffect(() => {
@@ -26,4 +26,4 @@ const Contra: React.FC = () => {
   );
 };
 
-export default Contra;
+export default CommandoStrike;

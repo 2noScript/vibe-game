@@ -24,8 +24,8 @@
 | **Synth Racer** | Fast-paced racing with a retro vibe. |
 | **Data Miner** | Dive into the digital grid. |
 | **Gold Miner** | Classic mining fun with a modern look. |
-| **Streets of Rage** | Retro brawler action. |
-| **Contra** | Classic run-and-gun gameplay. |
+| **City Brawler** | Retro brawler action. |
+| **Commando Strike** | Classic run-and-gun gameplay. |
 
 ## 🛠️ Tech Stack
 
