@@ -105,10 +105,20 @@ const Contra = () => {
     cameraX: 0,
     keys: { left: false, right: false, up: false, down: false, z: false, x: false },
     score: 0,
+    lives: 3,
+    gameState: 'START' as any,
     bulletIdCounter: 0,
     enemyIdCounter: 0,
     lastSpawnX: 0,
   });
+
+  useEffect(() => {
+    stateRef.current.gameState = gameState;
+  }, [gameState]);
+
+  useEffect(() => {
+    stateRef.current.lives = lives;
+  }, [lives]);
 
   const startGame = () => {
     audio.init();
@@ -123,12 +133,15 @@ const Contra = () => {
       cameraX: 0,
       keys: { left: false, right: false, up: false, down: false, z: false, x: false },
       score: 0,
+      lives: 3,
+      gameState: 'PLAYING',
       bulletIdCounter: 0,
       enemyIdCounter: 0,
       lastSpawnX: 0,
     };
     setScore(0);
     setLives(3);
+    stateRef.current.lives = 3;
     setGameState('PLAYING');
   };
 
@@ -303,20 +316,19 @@ const Contra = () => {
           audio.playPlayerHit();
           
           setTimeout(() => {
-            setLives(l => {
-              if (l > 1) {
-                // Respawn
-                stateRef.current.player = {
-                  x: stateRef.current.cameraX + 100, y: 100, vx: 0, vy: 0, w: 30, h: 60,
-                  state: 'fall', facing: 1, aimAngle: 0, shootCooldown: 0, invincible: 120, hp: 1
-                };
-                return l - 1;
-              } else {
-                setGameState('GAME_OVER');
-                audio.playGameOver();
-                return 0;
-              }
-            });
+            const state = stateRef.current;
+            if (state.lives > 1) {
+              setLives(l => l - 1);
+              state.lives -= 1;
+              // Respawn
+              state.player = {
+                x: state.cameraX + 100, y: 100, vx: 0, vy: 0, w: 30, h: 60,
+                state: 'fall', facing: 1, aimAngle: 0, shootCooldown: 0, invincible: 120, hp: 1
+              };
+            } else {
+              setGameState('GAME_OVER');
+              audio.playGameOver();
+            }
           }, 1000);
         }
 

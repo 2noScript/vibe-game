@@ -16,6 +16,10 @@ import { metadata as streetsOfRage } from './streets-of-rage/metadata';
 import StreetsOfRageThumbnail from './streets-of-rage/thumbnail';
 import { metadata as contra } from './contra/metadata';
 import ContraThumbnail from './contra/thumbnail';
+import { metadata as superMario } from './super-mario/metadata';
+import SuperMarioThumbnail from './super-mario/thumbnail';
+import { zombiePlantMetadata as zombiePlant } from './zombie-plant/metadata';
+import ZombiePlantThumbnail from './zombie-plant/thumbnail';
 
 export const games = [
   { ...cyberStrike, Thumbnail: CyberStrikeThumbnail },
@@ -27,4 +31,6 @@ export const games = [
   { ...goldMiner, Thumbnail: GoldMinerThumbnail },
   { ...streetsOfRage, Thumbnail: StreetsOfRageThumbnail },
   { ...contra, Thumbnail: ContraThumbnail },
+  { ...superMario, Thumbnail: SuperMarioThumbnail },
+  { ...zombiePlant, Thumbnail: ZombiePlantThumbnail },
 ];

@@ -13,14 +13,10 @@ const DeviceGuard: React.FC<DeviceGuardProps> = ({ children }) => {
     const checkDevice = () => {
       const userAgent = navigator.userAgent.toLowerCase();
       const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-      const isSmallScreen = window.innerWidth < 1024; // Standard desktop breakpoint
-
-      // The user wants it to be a computer (not mobile/tablet) and not a small window (resize)
-      if (isMobileDevice || isSmallScreen) {
-        setIsSupported(false);
-      } else {
-        setIsSupported(true);
-      }
+      const isSmallScreen = window.innerWidth < 320; // Allow most screens in preview
+      
+      // Allow all devices for now to ensure user can access the app
+      setIsSupported(true);
     };
 
     // Initial check

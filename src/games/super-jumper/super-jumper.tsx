@@ -175,11 +175,28 @@ const SuperJumper = () => {
     powerups: [] as Entity[],
     goal: null as Entity | null,
     score: 0,
+    lives: 3,
     frame: 0,
     shake: 0,
     timeLeft: 300,
     checkpointX: 50,
+    gameState: 'START' as any,
+    currentLevel: 0,
+    lastTime: 0,
   });
+
+  // Sync stateRef with React state for UI
+  useEffect(() => {
+    stateRef.current.gameState = gameState;
+  }, [gameState]);
+
+  useEffect(() => {
+    stateRef.current.currentLevel = currentLevel;
+  }, [currentLevel]);
+
+  useEffect(() => {
+    stateRef.current.lives = lives;
+  }, [lives]);
 
   const initLevel = (lvlIdx: number) => {
     const level = LEVELS[lvlIdx];
@@ -230,6 +247,7 @@ const SuperJumper = () => {
       shake: 0,
       timeLeft: 300,
       checkpointX: 50,
+      currentLevel: lvlIdx,
     };
     setTimeLeft(300);
   };
@@ -242,6 +260,7 @@ const SuperJumper = () => {
     setScore(0);
     stateRef.current.score = 0;
     setLives(3);
+    stateRef.current.lives = 3;
     setGameState('PLAYING');
   };
 
@@ -324,19 +343,21 @@ const SuperJumper = () => {
     };
 
     const die = () => {
-      if (lives > 1) {
+      const state = stateRef.current;
+      if (state.lives > 1) {
         setLives(l => l - 1);
-        stateRef.current.player.x = stateRef.current.checkpointX;
-        stateRef.current.player.y = 100;
-        stateRef.current.player.vx = 0;
-        stateRef.current.player.vy = 0;
-        stateRef.current.player.invincible = 60;
-        stateRef.current.player.power = 'normal';
-        stateRef.current.player.height = 30;
-        stateRef.current.timeLeft = 300;
+        state.lives -= 1;
+        state.player.x = state.checkpointX;
+        state.player.y = 100;
+        state.player.vx = 0;
+        state.player.vy = 0;
+        state.player.invincible = 60;
+        state.player.power = 'normal';
+        state.player.height = 30;
+        state.timeLeft = 300;
         setTimeLeft(300);
         audio.playHit();
-        stateRef.current.shake = 30;
+        state.shake = 30;
       } else {
         setGameState('GAME_OVER');
         audio.playGameOver();
@@ -344,10 +365,10 @@ const SuperJumper = () => {
     };
 
     const update = () => {
-      if ((gameState as string) === 'PAUSED') return;
       const state = stateRef.current;
+      if (state.gameState === 'PAUSED') return;
       const { player, keys, blocks, coins, enemies, powerups, particles, goal } = state;
-      const level = LEVELS[currentLevel];
+      const level = LEVELS[state.currentLevel];
       state.frame++;
 
       // Timer logic

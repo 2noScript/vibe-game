@@ -59,8 +59,19 @@ const PixelQuest: React.FC = () => {
     keys: {} as { [key: string]: boolean },
     entities: [] as any[],
     levelData: [] as string[],
-    camera: { x: 0, y: 0 }
+    camera: { x: 0, y: 0 },
+    status: GameStatus.MENU,
+    level: 1,
   });
+
+  // Sync stateRef with store for the loop
+  useEffect(() => {
+    gameState.current.status = status;
+  }, [status]);
+
+  useEffect(() => {
+    gameState.current.level = level;
+  }, [level]);
 
   const requestRef = useRef<number>(0);
 
@@ -203,7 +214,7 @@ const PixelQuest: React.FC = () => {
     if (player.y > 600) {
       loseLife();
       audio.playHurt();
-      loadLevel(level);
+      loadLevel(gameState.current.level);
     }
   };
 

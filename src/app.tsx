@@ -14,8 +14,10 @@ import SuperJumper from './games/super-jumper/super-jumper';
 import GoldMiner from './games/gold-miner/gold-miner';
 import StreetsOfRage from './games/streets-of-rage/streets-of-rage';
 import Contra from './games/contra/contra';
+import SuperMario from './games/super-mario/super-mario';
+import ZombiePlant from './games/zombie-plant/zombie-plant';
 import Home from './pages/home';
-import DeviceGuard from './components/DeviceGuard';
+import DeviceGuard from './components/device-guard';
 import './styles/index.css';
 import { ArrowLeft, Info, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -211,6 +213,28 @@ const GameWrapper: React.FC = () => {
         <HelpButton />
         <ShortcutsModal />
         <Contra />
+      </div>
+    );
+  }
+
+  if (id === 'super-mario') {
+    return (
+      <div className="relative w-full h-screen overflow-hidden">
+        <BackButton />
+        <HelpButton />
+        <ShortcutsModal />
+        <SuperMario />
+      </div>
+    );
+  }
+
+  if (id === 'zombie-plant') {
+    return (
+      <div className="relative w-full h-screen overflow-hidden">
+        <BackButton />
+        <HelpButton />
+        <ShortcutsModal />
+        <ZombiePlant />
       </div>
     );
   }
