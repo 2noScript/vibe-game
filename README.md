@@ -56,6 +56,107 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
+## 🏗️ Game Development Standards
+
+To ensure high-performance, maintainable, and scalable 2D games, all games in this hub follow our **Professional Game Architecture Standard (v1.0)**.
+
+### Architectural Principles
+- **Separation of Concerns (SoC):** Decoupling UI (React), Logic (Engine), and Data (Store).
+- **Deterministic Logic:** Using a fixed time step (0.016s) for consistent physics across devices.
+- **Entity-Component-System (ECS) Lite:** Objects encapsulate their own state and behavior.
+- **Event-Driven Communication:** Decoupled Engine-to-UI communication via Zustand.
+
+### Standard Directory Structure
+```text
+src/games/[game-name]/
+├── components/         # React UI (HUD, Menus)
+├── engine/             # Core Game Logic (OOP Classes)
+├── audio.ts            # Sound management
+├── store.ts            # Zustand state management
+└── README.md           # Game-specific documentation
+```
+
+---
+
+## 📖 Gold Miner - Game Architecture Documentation
+
+This document outlines the architectural design of the **Gold Miner** game, following modern software engineering principles and an Object-Oriented Programming (OOP) approach.
+
+### 1. High-Level Overview
+The game is built using **React** for the UI layer, **Zustand** for global state management, and **HTML5 Canvas** for the core gameplay rendering. The logic is separated into a dedicated **Game Engine** that handles physics, collisions, and entity updates.
+
+### 2. Core Architectural Components
+
+#### A. State Management (Zustand)
+Located in `store.ts`, the store acts as the bridge between the React UI and the Game Engine.
+- **Responsibilities**:
+    - Managing high-level game states (Score, Level, Goal, Time, Status).
+    - Handling transitions between game screens (Start, Playing, Game Over, Level Clear).
+    - Providing a hook for the UI to trigger game actions (e.g., `shootClaw`).
+
+#### B. Game Engine (`game-engine.ts`)
+The `GameEngine` class is the "brain" of the game.
+- **Responsibilities**:
+    - **Level Generation**: Spawning items based on the current level difficulty.
+    - **Update Loop**: Calculating physics, checking for collisions between the claw and items.
+    - **Entity Management**: Maintaining lists of active items, particles, and floating texts.
+    - **Rendering Orchestration**: Calling the `draw()` methods of all entities in the correct order.
+
+#### C. Entity System (OOP)
+The game uses a class-based system to encapsulate the behavior and appearance of game objects.
+1.  **Miner (`miner.ts`)**: Manages the swinging angle of the claw, claw states (`swinging`, `shooting`, `retracting`), and drawing logic.
+2.  **Items (`item.ts`)**: Uses a `BaseItem` abstract class for common properties (x, y, value, weight) and subclasses for specific drawing logic.
+3.  **Visual Effects (`particle.ts`)**: Handles debris particles and floating text indicators.
+
+### 3. The Game Loop
+Operates on a standard `requestAnimationFrame` loop located in `GameView.tsx`.
+- **Update Phase**: `engine.update(dt)` handles physics, collisions, and entity updates.
+- **Draw Phase**: `engine.draw(ctx)` renders the background, items, miner, and effects in layers.
+
+### 4. Audio System (`audio.ts`)
+A centralized audio controller using the **Web Audio API** with lazy initialization and dynamic pitch/speed adjustment based on item weight.
+
+### 5. Key Design Patterns
+- **Singleton-like Engine**: Instantiated once per level and held in the store.
+- **Strategy Pattern**: Different item types implement their own drawing strategies.
+- **Observer Pattern**: The store notifies the UI of state changes.
+- **Fixed Time Step**: Ensures consistent gameplay speed.
+
+---
+
+## 🚀 Professional Game Architecture Standard (v1.0)
+
+This document defines the standard architecture for high-performance, maintainable, and scalable 2D games built with **React**, **TypeScript**, and **HTML5 Canvas**.
+
+### 1. Architectural Principles
+1.  **Separation of Concerns (SoC)**: Presentation (React), Logic (Engine), Data (Store).
+2.  **Deterministic Logic**: Independent of frame rate (fixed time step).
+3.  **Entity-Component-System (ECS) Lite**: Objects encapsulate their own state and behavior.
+4.  **Event-Driven Communication**: Decoupled Engine-to-UI communication.
+
+### 2. Core Lifecycle
+Every game object must follow: `init()`, `load()`, `update(dt)`, `draw(ctx)`, `destroy()`.
+
+### 3. Implementation Standards
+- **Engine**: Pure TypeScript class, not a React component.
+- **Entity Management**: Use **Object Pooling** for high-frequency objects.
+- **Input Management**: Centralized `InputManager` for easy remapping.
+- **Asset Loading**: Use an `AssetLoader` to ensure resources are ready before the game starts.
+
+### 4. Performance Checklist
+- [ ] **Offscreen Canvas**: Render static backgrounds once.
+- [ ] **Layered Rendering**: Separate passes for background, midground, foreground.
+- [ ] **Culling**: Don't update/draw entities outside the viewport.
+- [ ] **Fixed Time Step**: Use `update(0.016)` for logic.
+
+### 5. Why this is "Pro"
+- **Scalability**: Easily add entities.
+- **Testability**: Logic separated from React.
+- **Portability**: Core logic is framework-agnostic.
+- **Collaboration**: Clear separation of concerns for team workflows.
+
+---
+
 <div align="center">
   <p>
     <a href="#">DISCORD</a> &bull; 
